@@ -220,14 +220,17 @@ window.addEventListener('click', () => {
 
 // Device orientation handling
 window.addEventListener('deviceorientation', (event) => {
-    const beta = event.beta * Math.PI / 180; // X-axis rotation
-    const gamma = event.gamma * Math.PI / 180; // Y-axis rotation
+    const beta = event.beta * Math.PI / 180;  // X-axis rotation (forward/backward tilt)
+    const gamma = event.gamma * Math.PI / 180; // Y-axis rotation (left/right tilt)
     
-    // Update gravity based on device orientation
+    // From top view, beta (forward tilt) affects Z gravity and gamma (side tilt) affects X gravity
+    // We reduce the gravity magnitude to make it more playable
+    const gravityMagnitude = 5; // Reduced from 9.82 for more gentle movement
+    
     world.gravity.set(
-        Math.sin(gamma) * 9.82,
-        -Math.cos(beta) * 9.82,
-        Math.sin(beta) * 9.82
+        Math.sin(gamma) * gravityMagnitude,  // X gravity (left/right tilt)
+        -0.5,  // Keep a small downward gravity to prevent floating
+        Math.sin(beta) * gravityMagnitude    // Z gravity (forward/backward tilt)
     );
 });
 
