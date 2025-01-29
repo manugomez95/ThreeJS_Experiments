@@ -5,5 +5,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    rollupOptions: {
+      external: [],
+      output: {
+        format: 'es'
+      }
+    }
+  },
+  resolve: {
+    dedupe: ['three', 'cannon-es']
   }
 }) 
