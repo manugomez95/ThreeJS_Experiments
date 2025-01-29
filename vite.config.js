@@ -6,9 +6,11 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     rollupOptions: {
-      external: [],
       output: {
-        format: 'es'
+        manualChunks: {
+          three: ['three'],
+          'cannon-es': ['cannon-es']
+        }
       }
     }
   },
